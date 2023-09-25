@@ -2,7 +2,7 @@
 
 namespace StringExtractors
 {
-    public class Class1
+    public static class StringExtractor
     {
 
     }
