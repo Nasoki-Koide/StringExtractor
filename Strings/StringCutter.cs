@@ -7,8 +7,8 @@ namespace StringExtractors.Strings
         public StringCutter(
             string source,
             SearchOrder searchOrder,
-            LeftString leftString,
-            RightString rightString)
+            ILeftString leftString,
+            IRightString rightString)
         {
             this.source = source ?? throw new ArgumentNullException(nameof(source));
             this.searchOrder = searchOrder;
@@ -18,8 +18,8 @@ namespace StringExtractors.Strings
 
         private string source { get; set; }
         private SearchOrder searchOrder { get; }
-        private LeftString leftString { get; }
-        private RightString rightString { get; }
+        private ILeftString leftString { get; }
+        private IRightString rightString { get; }
 
         private string firstCut()
         {
