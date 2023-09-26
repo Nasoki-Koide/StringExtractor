@@ -1,10 +1,9 @@
 using System;
-using StringExtractors.Strings;
 using StringExtractors.Strings.IndexReporters;
 
 namespace StringExtractors
 {
-    public sealed class LeftString
+    public class LeftString : ILeftString
     {
         public LeftString(string value)
         {
@@ -19,7 +18,7 @@ namespace StringExtractors
         public string Value { get; set; }
         public SearchDirection SearchDirection { get; set; } = SearchDirection.Forward;
 
-        internal string Cut(string source)
+        public string Cut(string source)
         {
             var indexReporter = IndexReporterFactory.Create(SearchDirection);
 
