@@ -4,7 +4,7 @@ using StringExtractors.Strings.IndexReporters;
 
 namespace StringExtractors
 {
-    public sealed class LeftString : KeyString
+    public sealed class LeftString
     {
         public LeftString(string value)
         {
