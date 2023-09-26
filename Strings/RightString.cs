@@ -4,7 +4,7 @@ using StringExtractors.Strings.IndexReporters;
 
 namespace StringExtractors
 {
-    public sealed class RightString
+    public class RightString : IRightString
     {
         public RightString(string value)
         {
@@ -19,7 +19,7 @@ namespace StringExtractors
         public string Value { get; set; }
         public SearchDirection SearchDirection { get; set; } = SearchDirection.Forward;
 
-        internal string Cut(string source)
+        public string Cut(string source)
         {
             var indexReporter = IndexReporterFactory.Create(SearchDirection);
 
