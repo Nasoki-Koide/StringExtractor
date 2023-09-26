@@ -4,7 +4,8 @@ namespace StringExtractors
 {
     public static class StringExtractor
     {
-        public static ExtractionResult Extract(string source, LeftString leftString, RightString rightString)
+        public static ExtractionResult Extract(
+            string source, LeftString leftString, RightString rightString, SearchOrder searchOrder)
         {
 
         }
