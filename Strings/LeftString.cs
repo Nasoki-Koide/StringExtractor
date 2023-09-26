@@ -19,7 +19,7 @@ namespace StringExtractors
         public string Value { get; set; }
         public SearchDirection SearchDirection { get; set; } = SearchDirection.Forward;
 
-        internal override string Cut(string source)
+        internal string Cut(string source)
         {
             var indexReporter = IndexReporterFactory.Create(SearchDirection);
 
