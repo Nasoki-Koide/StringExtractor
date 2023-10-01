@@ -8,5 +8,6 @@
         <Authors>Nasoki-Koide</Authors>
         <Description>Extract string.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
     </PropertyGroup>
 </Project>
