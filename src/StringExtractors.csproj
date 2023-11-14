@@ -9,5 +9,7 @@
         <Description>Extract string.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/Nasoki-Koide/StringExtractor</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 </Project>
