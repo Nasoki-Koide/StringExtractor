@@ -1,16 +1,17 @@
 using System;
+using StringExtractors.Indexes;
 
 namespace StringExtractors
 {
     public readonly struct ExtractionResult
     {
-        internal ExtractionResult(string value)
+        internal ExtractionResult(string value, IndexCollection indexCollection)
         {
             Value = value;
+            IndexCollection = indexCollection ?? throw new ArgumentNullException(nameof(indexCollection));
         }
 
         public string Value { get; }
-
-        // In future, maybe I will add some property like a index of Value in source.
+        public IndexCollection IndexCollection { get; }
     }
 }

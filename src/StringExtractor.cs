@@ -1,5 +1,5 @@
 ﻿using System;
-using StringExtractors.Strings;
+using StringExtractors.Indexes;
 
 namespace StringExtractors
 {
@@ -10,24 +10,54 @@ namespace StringExtractors
             string leftString = null,
             string rightString = null)
         {
-            ILeftString ls = string.IsNullOrEmpty(leftString) ?
-                (ILeftString)new NullLeftString() : new LeftString(leftString);
+            LeftString ls = string.IsNullOrEmpty(leftString) ? null : new LeftString(leftString);
 
-            IRightString rs = string.IsNullOrEmpty(rightString) ?
-                (IRightString)new NullRightString() : new RightString(rightString);
+            RightString rs = string.IsNullOrEmpty(rightString) ? null : new RightString(rightString);
 
-            return Extract(source, ls, rs);
+            return Extract(new StringExtractorParameters(source, ls, rs));
         }
 
-        public static ExtractionResult Extract(
-            string source,
-            ILeftString leftString,
-            IRightString rightString,
-            SearchOrder searchOrder = SearchOrder.LeftFirst,
-            int startLocation = 0)
+        public static ExtractionResult Extract(StringExtractorParameters parameters)
         {
-            var cutter = new StringCutter(source, searchOrder, leftString, rightString);
-            return new ExtractionResult(cutter.Cut());
+            var indexCollectionBuilder = new IndexCollectionBuilder();
+            var startIndexCalculator = new StartIndexCalculator(parameters.StartIndex, parameters.Source);
+
+            switch (parameters.SearchOrder)
+            {
+                case SearchOrder.LeftFirst:
+                    parameters.LeftString.SetSearchOrderAndDirection(parameters.SearchOrder);
+                    parameters.LeftString.CalculateLeftAndHeadIndex(
+                        startIndexCalculator.CalculateFirstString(parameters.LeftString.SearchDirection.Value),
+                        parameters.Source,
+                        indexCollectionBuilder);
+                    parameters.RightString.CalculateRightIndex(
+                        startIndexCalculator.CalculateSecondString(parameters.RightString.SearchDirection, parameters.SearchOrder),
+                        parameters.Source,
+                        indexCollectionBuilder);
+                    break;
+
+                case SearchOrder.RightFirst:
+                    parameters.LeftString.SetSearchOrderAndDirection(parameters.SearchOrder);
+                    parameters.RightString.CalculateRightIndex(
+                        startIndexCalculator.CalculateFirstString(parameters.RightString.SearchDirection),
+                        parameters.Source,
+                        indexCollectionBuilder);
+                    parameters.LeftString.CalculateLeftAndHeadIndex(
+                        startIndexCalculator.CalculateSecondString(parameters.LeftString.SearchDirection.Value, parameters.SearchOrder),
+                        parameters.Source,
+                        indexCollectionBuilder);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(parameters.SearchOrder));
+            }
+
+            var indexCollection = indexCollectionBuilder.Build();
+
+            var extractedString = parameters.Source.Substring(
+                indexCollection.Head, indexCollection.Right - indexCollection.Head);
+
+            return new ExtractionResult(extractedString, indexCollection);
         }
     }
 }
