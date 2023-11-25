@@ -8,18 +8,21 @@ namespace StringExtractors.Strings
             string source,
             SearchOrder searchOrder,
             ILeftString leftString,
-            IRightString rightString)
+            IRightString rightString,
+            int startLocation)
         {
             this.source = source ?? throw new ArgumentNullException(nameof(source));
             this.searchOrder = searchOrder;
             this.leftString = leftString ?? throw new ArgumentNullException(nameof(leftString));
             this.rightString = rightString ?? throw new ArgumentNullException(nameof(rightString));
+            this.startLocation = startLocation;
         }
 
         private string source { get; set; }
         private SearchOrder searchOrder { get; }
         private ILeftString leftString { get; }
         private IRightString rightString { get; }
+        private int startLocation { get; }
 
         private string firstCut()
         {
