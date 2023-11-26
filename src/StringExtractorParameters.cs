@@ -11,17 +11,17 @@ namespace StringExtractors
             SearchOrder searchOrder = SearchOrder.LeftFirst,
             int? startIndex = null)
         {
-            Source = source ?? throw new ArgumentNullException(nameof(source));
+            Source = source;
             LeftString = leftString;
             RightString = rightString;
             SearchOrder = searchOrder;
             StartIndex = startIndex;
         }
 
-        public string Source { get; }
-        public LeftString LeftString { get; }
-        public RightString RightString { get; }
-        public SearchOrder SearchOrder { get; }
-        public int? StartIndex { get; }
+        public string Source { get; set; }
+        public LeftString LeftString { get; set; }
+        public RightString RightString { get; set; }
+        public SearchOrder SearchOrder { get; set; }
+        public int? StartIndex { get; set; }
     }
 }

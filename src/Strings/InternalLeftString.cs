@@ -1,11 +1,11 @@
 using System;
 using StringExtractors.Indexes;
 
-namespace StringExtractors
+namespace StringExtractors.Strings
 {
-    public class LeftString
+    internal class InternalLeftString : IInternalLeftString
     {
-        public LeftString(string value)
+        public InternalLeftString(string value, SearchDirection searchDirection, int skip, SearchOrder searchOrder)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -13,31 +13,17 @@ namespace StringExtractors
             }
 
             Value = value;
+            SearchDirection = searchDirection;
+            Skip = skip;
+            SearchOrder = searchOrder;
         }
 
-        public string Value { get; set; }
-        public SearchDirection? SearchDirection { get; set; } = null;
-        public int Skip { get; set; }
-        internal SearchOrder SearchOrder { get; private set; }
-        internal void SetSearchOrderAndDirection(SearchOrder value)
-        {
-            SearchOrder = value;
+        public string Value { get; }
+        public SearchDirection SearchDirection { get; }
+        public int Skip { get; }
+        public SearchOrder SearchOrder { get; }
 
-            if (SearchDirection is null)
-                switch (SearchOrder)
-                {
-                    case SearchOrder.LeftFirst:
-                        SearchDirection = StringExtractors.SearchDirection.Forward;
-                        break;
-                    case SearchOrder.RightFirst:
-                        SearchDirection = StringExtractors.SearchDirection.Backward;
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
-        }
-
-        internal void CalculateLeftAndHeadIndex(
+        public void CalculateLeftAndHeadIndex(
             int startIndex,
             string source,
             IndexCollectionBuilder builder)
@@ -47,7 +33,7 @@ namespace StringExtractors
             {
                 switch (SearchDirection)
                 {
-                    case StringExtractors.SearchDirection.Forward:
+                    case SearchDirection.Forward:
                         left = source.IndexOf(Value, startIndex);
 
                         if (left == -1)
@@ -55,7 +41,7 @@ namespace StringExtractors
 
                         startIndex = left + 1;
                         break;
-                    case StringExtractors.SearchDirection.Backward:
+                    case SearchDirection.Backward:
                         left = source.LastIndexOf(Value, startIndex);
 
                         if (left == -1)

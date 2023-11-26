@@ -1,5 +1,6 @@
 ﻿using System;
 using StringExtractors.Indexes;
+using StringExtractors.Strings;
 
 namespace StringExtractors
 {
@@ -19,30 +20,36 @@ namespace StringExtractors
 
         public static ExtractionResult Extract(StringExtractorParameters parameters)
         {
+            if (parameters.Source is null)
+                return new ExtractionResult(null, new IndexCollection(null, null, null));
+
             var indexCollectionBuilder = new IndexCollectionBuilder();
             var startIndexCalculator = new StartIndexCalculator(parameters.StartIndex, parameters.Source);
+
+            var internalLeftStr = parameters.LeftString?.CreateInternalModel(parameters.SearchOrder) ??
+                (IInternalLeftString)new NullInternalLeftString();
+            var internalRightString = parameters.RightString?.CreateInternalModel() ??
+                (IInternalRightString)new NullInternalRightString();
 
             switch (parameters.SearchOrder)
             {
                 case SearchOrder.LeftFirst:
-                    parameters.LeftString.SetSearchOrderAndDirection(parameters.SearchOrder);
-                    parameters.LeftString.CalculateLeftAndHeadIndex(
+                    internalLeftStr.CalculateLeftAndHeadIndex(
                         startIndexCalculator.CalculateFirstString(parameters.LeftString.SearchDirection.Value),
                         parameters.Source,
                         indexCollectionBuilder);
-                    parameters.RightString.CalculateRightIndex(
+                    internalRightString.CalculateRightIndex(
                         startIndexCalculator.CalculateSecondString(parameters.RightString.SearchDirection, parameters.SearchOrder),
                         parameters.Source,
                         indexCollectionBuilder);
                     break;
 
                 case SearchOrder.RightFirst:
-                    parameters.LeftString.SetSearchOrderAndDirection(parameters.SearchOrder);
-                    parameters.RightString.CalculateRightIndex(
+                    internalRightString.CalculateRightIndex(
                         startIndexCalculator.CalculateFirstString(parameters.RightString.SearchDirection),
                         parameters.Source,
                         indexCollectionBuilder);
-                    parameters.LeftString.CalculateLeftAndHeadIndex(
+                    internalLeftStr.CalculateLeftAndHeadIndex(
                         startIndexCalculator.CalculateSecondString(parameters.LeftString.SearchDirection.Value, parameters.SearchOrder),
                         parameters.Source,
                         indexCollectionBuilder);
@@ -54,8 +61,7 @@ namespace StringExtractors
 
             var indexCollection = indexCollectionBuilder.Build();
 
-            var extractedString = parameters.Source.Substring(
-                indexCollection.Head, indexCollection.Right - indexCollection.Head);
+            string extractedString = indexCollection.ExtractFrom(parameters.Source);
 
             return new ExtractionResult(extractedString, indexCollection);
         }
