@@ -19,10 +19,11 @@ namespace StringExtractors.Strings
 
         public string Value { get; }
         public int Skip { get; }
+        public int StartIndex { get; set; }
         public SearchDirection SearchDirection { get; }
         public StringComparison StringComparison { get; }
 
-        public void SetLeftAndHeadIndex(string source, int startIndex, IndexCollectionBuilder builder)
+        public void SetLeftAndHeadIndex(string source, IndexCollectionBuilder builder)
         {
             int left = 0;
             for (var i = 0; i <= Skip; i++)
@@ -30,20 +31,20 @@ namespace StringExtractors.Strings
                 switch (SearchDirection)
                 {
                     case SearchDirection.Forward:
-                        left = source.IndexOf(Value, startIndex, StringComparison);
+                        left = source.IndexOf(Value, StartIndex, StringComparison);
 
                         if (left == -1)
                             throw new InvalidOperationException();
 
-                        startIndex = left + 1;
+                        StartIndex = left + 1;
                         break;
                     case SearchDirection.Backward:
-                        left = source.LastIndexOf(Value, startIndex, StringComparison);
+                        left = source.LastIndexOf(Value, StartIndex, StringComparison);
 
                         if (left == -1)
                             throw new InvalidOperationException();
 
-                        startIndex = left - 1;
+                        StartIndex = left - 1;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(SearchDirection));
@@ -54,7 +55,7 @@ namespace StringExtractors.Strings
             builder.Head = builder.Left + Value.Length;
         }
 
-        public void SetRightIndex(string source, int startIndex, IndexCollectionBuilder builder)
+        public void SetRightIndex(string source, IndexCollectionBuilder builder)
         {
             int right = 0;
             for (var i = 0; i <= Skip; i++)
@@ -62,20 +63,20 @@ namespace StringExtractors.Strings
                 switch (SearchDirection)
                 {
                     case SearchDirection.Forward:
-                        right = source.IndexOf(Value, startIndex, StringComparison);
+                        right = source.IndexOf(Value, StartIndex, StringComparison);
 
                         if (right == -1)
                             throw new InvalidOperationException();
 
-                        startIndex = right + 1;
+                        StartIndex = right + 1;
                         break;
                     case SearchDirection.Backward:
-                        right = source.LastIndexOf(Value, startIndex, StringComparison);
+                        right = source.LastIndexOf(Value, StartIndex, StringComparison);
 
                         if (right == -1)
                             throw new InvalidOperationException();
 
-                        startIndex = right - 1;
+                        StartIndex = right - 1;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(SearchDirection));

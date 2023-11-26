@@ -111,7 +111,7 @@ public class UnitTest1
     {
         var parameters = new StringExtractorParameters(
             "abcabcdef",
-            new LeftString("a") { SearchDirection = SearchDirection.Backward },
+            new LeftString("a", direction: SearchDirection.Backward),
             new RightString("e"));
 
         var rslt = StringExtractor.Extract(parameters);
@@ -127,7 +127,7 @@ public class UnitTest1
         var parameters = new StringExtractorParameters(
             "a1ca2cdef",
             new LeftString("a"),
-            new RightString("c") { SearchDirection = SearchDirection.Backward });
+            new RightString("c", direction: SearchDirection.Backward));
 
         var rslt = StringExtractor.Extract(parameters);
         Assert.AreEqual("1ca2", rslt.Value);
@@ -141,8 +141,8 @@ public class UnitTest1
     {
         var parameters = new StringExtractorParameters(
             "a1ca2cdef",
-            new LeftString("a") { SearchDirection = SearchDirection.Backward },
-            new RightString("c") { SearchDirection = SearchDirection.Backward });
+            new LeftString("a", direction: SearchDirection.Backward),
+            new RightString("c", direction: SearchDirection.Backward));
 
         var rslt = StringExtractor.Extract(parameters);
         Assert.AreEqual("2", rslt.Value);
@@ -156,10 +156,7 @@ public class UnitTest1
     {
         var parameters = new StringExtractorParameters(
             "a1ca2cdef",
-            new LeftString("a")
-            {
-                Skip = 1
-            },
+            new LeftString("a", skip: 1),
             new RightString("c"));
 
         var rslt = StringExtractor.Extract(parameters);
@@ -174,10 +171,7 @@ public class UnitTest1
         var parameters = new StringExtractorParameters(
             "a1ca2cdef",
             new LeftString("a"),
-            new RightString("c")
-            {
-                Skip = 1
-            });
+            new RightString("c", skip: 1));
 
         var rslt = StringExtractor.Extract(parameters);
         Assert.AreEqual("1ca2", rslt.Value);
@@ -205,7 +199,7 @@ public class UnitTest1
     {
         var parameters = new StringExtractorParameters(
             "a1ca2cdefa3ca4cdefa5ca6cdef",
-            new LeftString("a") { SearchDirection = SearchDirection.Backward },
+            new LeftString("a", direction: SearchDirection.Backward),
             new RightString("c"),
             startIndex: 10);
 
@@ -236,7 +230,7 @@ public class UnitTest1
     {
         var parameters = new StringExtractorParameters(
             "a1ca2cdefa3ca4cdefa5ca6cdef",
-            new LeftString("a") { SearchDirection = SearchDirection.Forward },
+            new LeftString("a", direction: SearchDirection.Backward),
             new RightString("c"),
             searchOrder: SearchOrder.RightFirst,
             startIndex: 10);
@@ -251,7 +245,7 @@ public class UnitTest1
     public void TestMethod20()
     {
         var source = "AB_hoge_1_DD_fuga_23_JIMI_HENDRIX_1969_TYLER_DURDEN_1999";
-        var rs = new RightString("_") { Skip = 2 };
+        var rs = new RightString(new RegexStringType("_|^$"));
         var startIndex = 0;
 
         var parameters = new StringExtractorParameters(

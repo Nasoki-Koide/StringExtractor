@@ -3,11 +3,10 @@ using StringExtractors.Indexes;
 
 namespace StringExtractors.Strings
 {
-    internal interface IInternalStringType
+    internal interface IInternalStringType : IStartIndex
     {
         int Skip { get; }
-        SearchDirection SearchDirection { get; }
-        void SetLeftAndHeadIndex(string source, int startIndex, IndexCollectionBuilder builder);
-        void SetRightIndex(string source, int startIndex, IndexCollectionBuilder builder);
+        void SetLeftAndHeadIndex(string source, IndexCollectionBuilder builder);
+        void SetRightIndex(string source, IndexCollectionBuilder builder);
     }
 }

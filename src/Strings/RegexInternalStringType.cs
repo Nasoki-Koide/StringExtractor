@@ -17,6 +17,7 @@ namespace StringExtractors.Strings
         private string pattern { get; }
         private RegexStringTypeOptions options { get; }
         public int Skip { get; }
+        public int StartIndex { get; set; }
 
         public SearchDirection SearchDirection
         {
@@ -31,7 +32,7 @@ namespace StringExtractors.Strings
             }
         }
 
-        public void SetLeftAndHeadIndex(string source, int startIndex, IndexCollectionBuilder builder)
+        public void SetLeftAndHeadIndex(string source, IndexCollectionBuilder builder)
         {
             int left = 0;
             Match match = null;
@@ -39,18 +40,18 @@ namespace StringExtractors.Strings
             {
                 // Regardless of SearchDirection, the following code is applied.
                 // Because, if SearchDirection is Backward, options contains RightToLeft. 
-                match = Regex.Match(source.Substring(startIndex), pattern, convertOptions());
+                match = Regex.Match(source.Substring(StartIndex), pattern, convertOptions());
 
                 if (match.Index == -1)
                     throw new InvalidOperationException();
-                left = match.Index + startIndex;
+                left = match.Index + StartIndex;
                 switch (SearchDirection)
                 {
                     case SearchDirection.Forward:
-                        startIndex = left + 1;
+                        StartIndex = left + 1;
                         break;
                     case SearchDirection.Backward:
-                        startIndex = left - 1;
+                        StartIndex = left - 1;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(SearchDirection));
@@ -61,25 +62,25 @@ namespace StringExtractors.Strings
             builder.Head = builder.Left + match.Length;
         }
 
-        public void SetRightIndex(string source, int startIndex, IndexCollectionBuilder builder)
+        public void SetRightIndex(string source, IndexCollectionBuilder builder)
         {
             int right = 0;
             for (var i = 0; i <= Skip; i++)
             {
                 // Regardless of SearchDirection, the following code is correct.
                 // Because, if SearchDirection is Backward, options contains RightToLeft. 
-                var match = Regex.Match(source.Substring(startIndex), pattern, convertOptions());
+                var match = Regex.Match(source.Substring(StartIndex), pattern, convertOptions());
 
                 if (match.Index == -1)
                     throw new InvalidOperationException();
-                right = match.Index + startIndex;
+                right = match.Index + StartIndex;
                 switch (SearchDirection)
                 {
                     case SearchDirection.Forward:
-                        startIndex = right + 1;
+                        StartIndex = right + 1;
                         break;
                     case SearchDirection.Backward:
-                        startIndex = right - 1;
+                        StartIndex = right - 1;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(SearchDirection));

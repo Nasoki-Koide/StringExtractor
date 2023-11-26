@@ -7,19 +7,23 @@ namespace StringExtractors
 {
     public class RegexStringType : StringType
     {
-        public RegexStringType(string pattern, RegexStringTypeOptions options)
+        public RegexStringType(string pattern)
         {
             Pattern = pattern;
-
-            if (options.HasFlag(RegexStringTypeOptions.LeftToRight) &&
-                options.HasFlag(RegexStringTypeOptions.RightToLeft))
-                throw new ArgumentException("Cannot set LeftToRight and RightToLeft in same instance.", nameof(options));
-
-            Options = options;
         }
 
         public string Pattern { get; set; }
-        public RegexStringTypeOptions Options { get; set; }
+        private RegexStringTypeOptions _options;
+        public RegexStringTypeOptions Options
+        {
+            get => _options; set
+            {
+                if (value.HasFlag(RegexStringTypeOptions.LeftToRight) &&
+                    value.HasFlag(RegexStringTypeOptions.RightToLeft))
+                    throw new ArgumentException("Cannot set LeftToRight and RightToLeft in same instance.", nameof(value));
+                _options = value;
+            }
+        }
 
         internal override IInternalStringType CreateInternalModel(SearchDirection autoSetDirection)
         {

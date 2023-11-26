@@ -8,8 +8,8 @@ namespace StringExtractors.Indexes
         public SetStartIndexService(
             int? startIndex,
             string source,
-            ILeftStartIndex leftString,
-            IRightStartIndex rightString,
+            InternalLeftString leftString,
+            InternalRightString rightString,
             SearchOrder order)
         {
             this.startIndex = startIndex;
@@ -21,8 +21,8 @@ namespace StringExtractors.Indexes
 
         private int? startIndex { get; }
         private string source { get; }
-        private ILeftStartIndex leftString { get; }
-        private IRightStartIndex rightString { get; }
+        private InternalLeftString leftString { get; }
+        private InternalRightString rightString { get; }
         private SearchOrder order { get; }
 
         public void SetStartIndexForFirstString()
@@ -31,10 +31,10 @@ namespace StringExtractors.Indexes
             switch (order)
             {
                 case SearchOrder.LeftFirst:
-                    target = leftString;
+                    target = leftString.Value;
                     break;
                 case SearchOrder.RightFirst:
-                    target = rightString;
+                    target = rightString.Value;
                     break;
                 default:
                     throw new NotImplementedException();
@@ -52,10 +52,10 @@ namespace StringExtractors.Indexes
             switch (order)
             {
                 case SearchOrder.LeftFirst:
-                    target = rightString;
+                    target = rightString.Value;
                     break;
                 case SearchOrder.RightFirst:
-                    target = leftString;
+                    target = leftString.Value;
                     break;
                 default:
                     throw new NotImplementedException();

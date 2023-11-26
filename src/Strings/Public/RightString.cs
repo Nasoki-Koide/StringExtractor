@@ -6,9 +6,14 @@ namespace StringExtractors
 {
     public class RightString
     {
-        public RightString(string value)
+        public RightString(string value, int skip = 0, SearchDirection direction = SearchDirection.Forward, StringComparison stringComparison = StringComparison.CurrentCulture)
         {
-            Value = new NormalStringType(value);
+            Value = new NormalStringType(value)
+            {
+                Skip = skip,
+                SearchDirection = direction,
+                StringComparison = stringComparison
+            };
         }
 
         public RightString(StringType value)

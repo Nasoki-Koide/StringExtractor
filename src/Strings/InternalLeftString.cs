@@ -3,7 +3,7 @@ using StringExtractors.Indexes;
 
 namespace StringExtractors.Strings
 {
-    internal class InternalLeftString : IIndexSetter, ILeftStartIndex
+    internal class InternalLeftString : IIndexSetter
     {
         public InternalLeftString(IInternalStringType value)
         {
@@ -11,12 +11,11 @@ namespace StringExtractors.Strings
         }
 
         public IInternalStringType Value { get; }
-        public int StartIndex { get; set; }
         public SearchDirection SearchDirection { get => Value.SearchDirection; }
 
         public void SetIndex(string source, IndexCollectionBuilder builder)
         {
-            Value.SetLeftAndHeadIndex(source, StartIndex, builder);
+            Value.SetLeftAndHeadIndex(source, builder);
         }
     }
 }

@@ -25,9 +25,9 @@ namespace StringExtractors
 
             var indexCollectionBuilder = new IndexCollectionBuilder();
             var internalLeftStr = parameters.LeftString?.CreateInternalModel(parameters.SearchOrder) ??
-                (ILeftStartIndex)new NullInternalLeftString();
+                new InternalLeftString(new NullInternalStringType());
             var internalRightStr = parameters.RightString?.CreateInternalModel() ??
-                (IRightStartIndex)new NullInternalRightString();
+                new InternalRightString(new NullInternalStringType());
             var setStartIndexService = new SetStartIndexService(
                 parameters.StartIndex, parameters.Source, internalLeftStr, internalRightStr, parameters.SearchOrder);
 
