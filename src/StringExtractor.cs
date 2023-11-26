@@ -24,33 +24,33 @@ namespace StringExtractors
                 return new ExtractionResult(null, new IndexCollection(null, null, null));
 
             var indexCollectionBuilder = new IndexCollectionBuilder();
-            var startIndexCalculator = new StartIndexCalculator(parameters.StartIndex, parameters.Source);
-
             var internalLeftStr = parameters.LeftString?.CreateInternalModel(parameters.SearchOrder) ??
-                (IInternalLeftString)new NullInternalLeftString();
-            var internalRightString = parameters.RightString?.CreateInternalModel() ??
-                (IInternalRightString)new NullInternalRightString();
+                (ILeftStartIndex)new NullInternalLeftString();
+            var internalRightStr = parameters.RightString?.CreateInternalModel() ??
+                (IRightStartIndex)new NullInternalRightString();
+            var setStartIndexService = new SetStartIndexService(
+                parameters.StartIndex, parameters.Source, internalLeftStr, internalRightStr, parameters.SearchOrder);
 
             switch (parameters.SearchOrder)
             {
                 case SearchOrder.LeftFirst:
-                    internalLeftStr.CalculateLeftAndHeadIndex(
-                        startIndexCalculator.CalculateFirstString(parameters.LeftString.SearchDirection.Value),
+                    setStartIndexService.SetStartIndexForFirstString();
+                    ((IIndexSetter)internalLeftStr).SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
-                    internalRightString.CalculateRightIndex(
-                        startIndexCalculator.CalculateSecondString(parameters.RightString.SearchDirection, parameters.SearchOrder),
+                    setStartIndexService.SetStartIndexForSecondString(indexCollectionBuilder);
+                    ((IIndexSetter)internalRightStr).SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
                     break;
 
                 case SearchOrder.RightFirst:
-                    internalRightString.CalculateRightIndex(
-                        startIndexCalculator.CalculateFirstString(parameters.RightString.SearchDirection),
+                    setStartIndexService.SetStartIndexForFirstString();
+                    ((IIndexSetter)internalRightStr).SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
-                    internalLeftStr.CalculateLeftAndHeadIndex(
-                        startIndexCalculator.CalculateSecondString(parameters.LeftString.SearchDirection.Value, parameters.SearchOrder),
+                    setStartIndexService.SetStartIndexForSecondString(indexCollectionBuilder);
+                    ((IIndexSetter)internalLeftStr).SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
                     break;

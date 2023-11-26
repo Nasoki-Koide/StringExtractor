@@ -8,36 +8,38 @@ namespace StringExtractors
     {
         public LeftString(string value)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new ArgumentException($"'{nameof(value)}' cannot be null or empty.", nameof(value));
-            }
+            Value = new NormalStringType(value);
+        }
 
+        public LeftString(StringType value)
+        {
             Value = value;
         }
 
-        public string Value { get; set; }
-        public SearchDirection? SearchDirection { get; set; } = null;
-        public int Skip { get; set; }
+        private StringType _value;
+        public StringType Value
+        {
+            get => _value;
+            set => _value = value ?? throw new ArgumentNullException(nameof(value));
+        }
 
         internal InternalLeftString CreateInternalModel(SearchOrder searchOrder)
         {
-            var sd = SearchDirection;
+            SearchDirection autoSetDirection;
 
-            if (sd is null)
-                switch (searchOrder)
-                {
-                    case SearchOrder.LeftFirst:
-                        sd = StringExtractors.SearchDirection.Forward;
-                        break;
-                    case SearchOrder.RightFirst:
-                        sd = StringExtractors.SearchDirection.Backward;
-                        break;
-                    default:
-                        throw new NotImplementedException();
-                }
+            switch (searchOrder)
+            {
+                case SearchOrder.LeftFirst:
+                    autoSetDirection = SearchDirection.Forward;
+                    break;
+                case SearchOrder.RightFirst:
+                    autoSetDirection = SearchDirection.Backward;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
 
-            return new InternalLeftString(Value, sd.Value, Skip, searchOrder);
+            return new InternalLeftString(Value.CreateInternalModel(autoSetDirection));
         }
     }
 }

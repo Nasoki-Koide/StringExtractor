@@ -3,10 +3,9 @@ using StringExtractors.Indexes;
 
 namespace StringExtractors.Strings
 {
-    internal interface IInternalLeftString
+    internal interface IIndexSetter
     {
-        void CalculateLeftAndHeadIndex(
-            int startIndex,
+        void SetIndex(
             string source,
             IndexCollectionBuilder builder);
     }
