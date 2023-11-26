@@ -1,6 +1,6 @@
 using System;
 
-namespace StringExtractors.Strings.Public
+namespace StringExtractors
 {
     [Flags]
     public enum RegexStringTypeOptions
