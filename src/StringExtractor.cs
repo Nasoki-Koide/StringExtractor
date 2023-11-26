@@ -35,7 +35,7 @@ namespace StringExtractors
             {
                 case SearchOrder.LeftFirst:
                     setStartIndexService.SetStartIndexForFirstString();
-                    ((IIndexSetter)internalLeftStr).SetIndex(
+                    internalLeftStr.SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
                     setStartIndexService.SetStartIndexForSecondString(indexCollectionBuilder);
@@ -46,11 +46,11 @@ namespace StringExtractors
 
                 case SearchOrder.RightFirst:
                     setStartIndexService.SetStartIndexForFirstString();
-                    ((IIndexSetter)internalRightStr).SetIndex(
+                    internalRightStr.SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
                     setStartIndexService.SetStartIndexForSecondString(indexCollectionBuilder);
-                    ((IIndexSetter)internalLeftStr).SetIndex(
+                    internalLeftStr.SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
                     break;
