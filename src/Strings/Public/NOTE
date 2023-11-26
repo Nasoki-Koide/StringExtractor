@@ -1,0 +1,1 @@
+- In loop, user may reuse instances. So, we must not change values of properties arbitrarily. For example, check CreateInternalModel method of NormalStringType. This method does not update property itself.
