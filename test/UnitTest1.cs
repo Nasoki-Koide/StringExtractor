@@ -236,16 +236,16 @@ public class UnitTest1
             startIndex: 10);
 
         var rslt = StringExtractor.Extract(parameters);
-        Assert.AreEqual("1ca2cdefa3", rslt.Value);
-        Assert.AreEqual(0, rslt.IndexCollection.Left);
-        Assert.AreEqual(1, rslt.IndexCollection.Head);
+        Assert.AreEqual("3", rslt.Value);
+        Assert.AreEqual(9, rslt.IndexCollection.Left);
+        Assert.AreEqual(10, rslt.IndexCollection.Head);
         Assert.AreEqual(11, rslt.IndexCollection.Right);
     }
     [TestMethod]
     public void TestMethod20()
     {
         var source = "AB_hoge_1_DD_fuga_23_JIMI_HENDRIX_1969_TYLER_DURDEN_1999";
-        var rs = new RightString(new RegexStringType("_|^$"));
+        var rs = new RightString("_", skip: 2);
         var startIndex = 0;
 
         var parameters = new StringExtractorParameters(
@@ -292,13 +292,13 @@ public class UnitTest1
         parameters = new StringExtractorParameters(
             source,
             ls,
-            rs,
+            null,
             startIndex: startIndex);
         rslt = StringExtractor.Extract(parameters);
 
         Assert.AreEqual("TYLER_DURDEN_1999", rslt.Value);
         Assert.AreEqual(38, rslt.IndexCollection.Left);
         Assert.AreEqual(39, rslt.IndexCollection.Head);
-        Assert.AreEqual(38, rslt.IndexCollection.Right);
+        Assert.AreEqual(null, rslt.IndexCollection.Right);
     }
 }

@@ -6,7 +6,7 @@ namespace StringExtractors
 {
     public class LeftString
     {
-        public LeftString(string value, int skip = 0, SearchDirection direction = SearchDirection.Forward, StringComparison stringComparison = StringComparison.CurrentCulture)
+        public LeftString(string value, int skip = 0, SearchDirection? direction = null, StringComparison stringComparison = StringComparison.CurrentCulture)
         {
             Value = new NormalStringType(value)
             {
