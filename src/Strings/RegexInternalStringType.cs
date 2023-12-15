@@ -1,7 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
 using StringExtractors.Indexes;
-using StringExtractors.Strings.Public;
 
 namespace StringExtractors.Strings
 {
