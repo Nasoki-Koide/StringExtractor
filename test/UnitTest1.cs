@@ -301,4 +301,22 @@ public class UnitTest1
         Assert.AreEqual(39, rslt.IndexCollection.Head);
         Assert.AreEqual(null, rslt.IndexCollection.Right);
     }
+
+    [TestMethod]
+    public void TestMethod21()
+    {
+        var parameters = new StringExtractorParameters(
+            "a1cA2cdefa3ca4cdefa5ca6cdef",
+            new LeftString(
+                "A",
+                direction: SearchDirection.Backward,
+                stringComparison: StringComparison.OrdinalIgnoreCase),
+            new RightString("c"));
+
+        var rslt = StringExtractor.Extract(parameters);
+        Assert.AreEqual("2", rslt.Value);
+        Assert.AreEqual(3, rslt.IndexCollection.Left);
+        Assert.AreEqual(4, rslt.IndexCollection.Head);
+        Assert.AreEqual(5, rslt.IndexCollection.Right);
+    }
 }
