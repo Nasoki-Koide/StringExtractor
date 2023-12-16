@@ -165,6 +165,7 @@ public class UnitTest1
         Assert.AreEqual(4, rslt.IndexCollection.Head);
         Assert.AreEqual(5, rslt.IndexCollection.Right);
     }
+
     [TestMethod]
     public void TestMethod15()
     {
@@ -179,6 +180,7 @@ public class UnitTest1
         Assert.AreEqual(1, rslt.IndexCollection.Head);
         Assert.AreEqual(5, rslt.IndexCollection.Right);
     }
+
     [TestMethod]
     public void TestMethod16()
     {
@@ -194,6 +196,7 @@ public class UnitTest1
         Assert.AreEqual(4, rslt.IndexCollection.Head);
         Assert.AreEqual(5, rslt.IndexCollection.Right);
     }
+
     [TestMethod]
     public void TestMethod17()
     {
@@ -209,6 +212,7 @@ public class UnitTest1
         Assert.AreEqual(10, rslt.IndexCollection.Head);
         Assert.AreEqual(11, rslt.IndexCollection.Right);
     }
+
     [TestMethod]
     public void TestMethod18()
     {
@@ -225,6 +229,7 @@ public class UnitTest1
         Assert.AreEqual(10, rslt.IndexCollection.Head);
         Assert.AreEqual(11, rslt.IndexCollection.Right);
     }
+
     [TestMethod]
     public void TestMethod19()
     {
@@ -241,6 +246,7 @@ public class UnitTest1
         Assert.AreEqual(10, rslt.IndexCollection.Head);
         Assert.AreEqual(11, rslt.IndexCollection.Right);
     }
+
     [TestMethod]
     public void TestMethod20()
     {
