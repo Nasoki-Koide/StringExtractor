@@ -309,14 +309,79 @@ public class UnitTest1
             "a1cA2cdefa3ca4cdefa5ca6cdef",
             new LeftString(
                 "A",
-                direction: SearchDirection.Backward,
                 stringComparison: StringComparison.OrdinalIgnoreCase),
             new RightString("c"));
 
         var rslt = StringExtractor.Extract(parameters);
-        Assert.AreEqual("2", rslt.Value);
-        Assert.AreEqual(3, rslt.IndexCollection.Left);
-        Assert.AreEqual(4, rslt.IndexCollection.Head);
-        Assert.AreEqual(5, rslt.IndexCollection.Right);
+        Assert.AreEqual("1", rslt.Value);
+        Assert.AreEqual(0, rslt.IndexCollection.Left);
+        Assert.AreEqual(1, rslt.IndexCollection.Head);
+        Assert.AreEqual(2, rslt.IndexCollection.Right);
+    }
+    [TestMethod]
+    public void TestMethod22()
+    {
+        var parameters = new StringExtractorParameters(
+            "a1a2fa5ca6cdef",
+            new LeftString(
+                new RegexStringType(
+                    @"\d"
+                )
+                {
+                    Options = RegexStringTypeOptions.RightToLeft
+                }),
+            new RightString("e"));
+
+        var rslt = StringExtractor.Extract(parameters);
+        Assert.AreEqual("cd", rslt.Value);
+        Assert.AreEqual(9, rslt.IndexCollection.Left);
+        Assert.AreEqual(10, rslt.IndexCollection.Head);
+        Assert.AreEqual(12, rslt.IndexCollection.Right);
+    }
+
+    [TestMethod]
+    public void TestMethod23()
+    {
+        var parameters = new StringExtractorParameters(
+            "a1a2fa5ca6cdef",
+            new LeftString(
+                new RegexStringType(
+                    @"\d"
+                )),
+            new RightString("f"));
+
+        var rslt = StringExtractor.Extract(parameters);
+        Assert.AreEqual("a2", rslt.Value);
+        Assert.AreEqual(1, rslt.IndexCollection.Left);
+        Assert.AreEqual(2, rslt.IndexCollection.Head);
+        Assert.AreEqual(4, rslt.IndexCollection.Right);
+    }
+
+    [TestMethod]
+    public void TestMethod24()
+    {
+        var parameters = new StringExtractorParameters(
+            "a1a2fa52ca6cd3ef",
+            new LeftString(
+                new RegexStringType(
+                    @"\d+"
+                )
+                {
+                    Skip = 2
+                }),
+            new RightString(
+                new RegexStringType(
+                    @"\d"
+                )
+                {
+                    Skip = 1
+                }
+            ));
+
+        var rslt = StringExtractor.Extract(parameters);
+        Assert.AreEqual("ca6cd", rslt.Value);
+        Assert.AreEqual(6, rslt.IndexCollection.Left);
+        Assert.AreEqual(8, rslt.IndexCollection.Head);
+        Assert.AreEqual(13, rslt.IndexCollection.Right);
     }
 }
