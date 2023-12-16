@@ -1,7 +1,7 @@
 using System;
 using StringExtractors.Indexes;
 
-namespace StringExtractors.Strings
+namespace StringExtractors.Strings.InternalStringTypes
 {
     internal interface IInternalStringType : IStartIndex
     {

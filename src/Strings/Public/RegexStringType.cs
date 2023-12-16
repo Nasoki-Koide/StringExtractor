@@ -1,6 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
-using StringExtractors.Strings;
+using StringExtractors.Strings.InternalStringTypes;
+using StringExtractors.Strings.InternalStringTypes.Regex;
 
 namespace StringExtractors
 {

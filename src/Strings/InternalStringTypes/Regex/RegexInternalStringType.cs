@@ -2,21 +2,26 @@ using System;
 using System.Text.RegularExpressions;
 using StringExtractors.Indexes;
 
-namespace StringExtractors.Strings
+namespace StringExtractors.Strings.InternalStringTypes.Regex
 {
     internal class RegexInternalStringType : IInternalStringType
     {
         public RegexInternalStringType(string pattern, int skip, RegexStringTypeOptions options)
         {
             this.pattern = pattern;
-            this.Skip = skip;
+            Skip = skip;
             this.options = options;
+
+            _subStringService = new SubStringService(SearchDirection);
+            _adjustIndexService = new AdjustIndexService(SearchDirection);
         }
 
         private string pattern { get; }
         private RegexStringTypeOptions options { get; }
         public int Skip { get; }
         public int StartIndex { get; set; }
+        private readonly SubStringService _subStringService;
+        private readonly AdjustIndexService _adjustIndexService;
 
         public SearchDirection SearchDirection
         {
@@ -27,7 +32,7 @@ namespace StringExtractors.Strings
                 else if (options.HasFlag(RegexStringTypeOptions.LeftToRight))
                     return SearchDirection.Forward;
                 else
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException();
             }
         }
 
@@ -37,13 +42,12 @@ namespace StringExtractors.Strings
             Match match = null;
             for (var i = 0; i <= Skip; i++)
             {
-                // Regardless of SearchDirection, the following code is applied.
-                // Because, if SearchDirection is Backward, options contains RightToLeft. 
-                match = Regex.Match(source.Substring(StartIndex), pattern, convertOptions());
+                match = System.Text.RegularExpressions.Regex
+                    .Match(_subStringService.GetSubString(source, StartIndex), pattern, convertOptions());
 
                 if (match.Index == -1)
                     throw new InvalidOperationException();
-                left = match.Index + StartIndex;
+                left = _adjustIndexService.Adjust(match, StartIndex);
                 switch (SearchDirection)
                 {
                     case SearchDirection.Forward:
@@ -68,11 +72,12 @@ namespace StringExtractors.Strings
             {
                 // Regardless of SearchDirection, the following code is correct.
                 // Because, if SearchDirection is Backward, options contains RightToLeft. 
-                var match = Regex.Match(source.Substring(StartIndex), pattern, convertOptions());
+                var match = System.Text.RegularExpressions.Regex
+                    .Match(_subStringService.GetSubString(source, StartIndex), pattern, convertOptions());
 
                 if (match.Index == -1)
                     throw new InvalidOperationException();
-                right = match.Index + StartIndex;
+                right = _adjustIndexService.Adjust(match, StartIndex);
                 switch (SearchDirection)
                 {
                     case SearchDirection.Forward:

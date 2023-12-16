@@ -1,5 +1,6 @@
 using System;
 using StringExtractors.Indexes;
+using StringExtractors.Strings.InternalStringTypes;
 
 namespace StringExtractors.Strings
 {

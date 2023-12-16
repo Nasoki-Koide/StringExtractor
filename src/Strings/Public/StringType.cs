@@ -1,5 +1,5 @@
 using System;
-using StringExtractors.Strings;
+using StringExtractors.Strings.InternalStringTypes;
 
 namespace StringExtractors
 {
