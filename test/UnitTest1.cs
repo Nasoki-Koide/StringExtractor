@@ -390,4 +390,27 @@ public class UnitTest1
         Assert.AreEqual(8, rslt.IndexCollection.Head);
         Assert.AreEqual(13, rslt.IndexCollection.Right);
     }
+
+    [TestMethod]
+    public void TestMethod25()
+    {
+        var parameters = new StringExtractorParameters(
+            "testtesttest",
+            new LeftString(
+                "s",
+                direction: SearchDirection.Forward
+            ),
+            new RightString(
+                "e",
+                direction: SearchDirection.Backward
+            )
+        );
+
+        var rslt = StringExtractor.Extract(parameters);
+
+        Assert.AreEqual("ttestt", rslt.Value);
+        Assert.AreEqual(2, rslt.IndexCollection.Left);
+        Assert.AreEqual(3, rslt.IndexCollection.Head);
+        Assert.AreEqual(9, rslt.IndexCollection.Right);
+    }
 }
