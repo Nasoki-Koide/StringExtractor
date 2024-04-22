@@ -1,5 +1,4 @@
 # StringExtractor
-(CAUTION: This README file is not updated, because this is an alpha version.)
 You can extract a part of string from long string.
 ```
 using StringExtractors;

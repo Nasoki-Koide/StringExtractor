@@ -36,24 +36,32 @@ namespace StringExtractors
             {
                 case SearchOrder.LeftFirst:
                     setStartIndexService.SetStartIndexForFirstString();
+
                     internalLeftStr.SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
+
                     setStartIndexService.SetStartIndexForSecondString(indexCollectionBuilder);
+
                     ((IIndexSetter)internalRightStr).SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
+
                     break;
 
                 case SearchOrder.RightFirst:
                     setStartIndexService.SetStartIndexForFirstString();
+
                     internalRightStr.SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
+
                     setStartIndexService.SetStartIndexForSecondString(indexCollectionBuilder);
+
                     internalLeftStr.SetIndex(
                         parameters.Source,
                         indexCollectionBuilder);
+
                     break;
 
                 default:
