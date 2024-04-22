@@ -44,8 +44,7 @@ namespace StringExtractors
                     throw new NotImplementedException();
             }
 
-            return new InternalLeftString(Value.CreateInternalModel(
-                autoSetDirection: autoSetDirection));
+            return new InternalLeftString(Value.CreateInternalModel(autoSetDirection));
         }
     }
 }
