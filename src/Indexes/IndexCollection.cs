@@ -1,6 +1,6 @@
 using System;
 
-namespace StringExtractors.Indexes
+namespace StringExtractors
 {
     /// <summary>
     /// Indexes of left/right string and extracted string in source.
