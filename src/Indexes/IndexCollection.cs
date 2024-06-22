@@ -29,7 +29,7 @@ namespace StringExtractors
         /// </summary>
         public int? Head { get; }
 
-        public string ExtractFrom(string source)
+        internal string ExtractFrom(string source)
         {
             if (Head is null)
                 return string.Empty;
