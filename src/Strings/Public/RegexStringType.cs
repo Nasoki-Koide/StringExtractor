@@ -29,7 +29,8 @@ namespace StringExtractors
         /// </summary>
         public RegexStringTypeOptions Options
         {
-            get => _options; set
+            get => _options;
+            set
             {
                 if (value.HasFlag(RegexStringTypeOptions.LeftToRight) &&
                     value.HasFlag(RegexStringTypeOptions.RightToLeft))

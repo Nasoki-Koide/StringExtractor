@@ -1,5 +1,4 @@
 # StringExtractor
-(CAUTION: This README file is not updated, because this is an alpha version.)
 You can extract a part of string from long string.
 ```
 using StringExtractors;
@@ -21,18 +20,24 @@ var result1 = StringExtractor.Extract(longString, rightString: " Two").Value;
 var result2 = StringExtractor.Extract(longString, leftString: "Two ").Value;
 ```
 
-You can specify search direction. (Forward or Backward.)
+For more complicated case, use StringExtractorParameters.
 ```
 using StringExtractors;
 
 var longString = "I'm Jack. I'm Tyler."
 
 // Searching leftString from the end of longString. So, result is "Tyler".
-var leftString = new LeftString("I'm ")
-{
-    SearchDirection = SearchDirection.Backward
-};
+var leftString = new LeftString(
+    "I'm ",
+    direction: SearchDirection.Backward);
+
 var rightString = new RightString(".");
 
-var result = StringExtractor.Extract(longString, leftString, rightString).Value;
+var parameters = new StringExtractorParameters(
+    longString,
+    leftString,
+    rightString
+);
+
+var result = StringExtractor.Extract(parameters).Value;
 ```
