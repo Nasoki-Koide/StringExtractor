@@ -20,7 +20,7 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                 case SearchDirection.Backward:
                     return source.Substring(0, startIndex + 1);
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(nameof(searchDirection));
             }
         }
     }

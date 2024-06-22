@@ -69,7 +69,7 @@ namespace StringExtractors
                     autoSetDirection = SearchDirection.Backward;
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException(nameof(searchOrder));
             }
 
             return new InternalLeftString(Value.CreateInternalModel(autoSetDirection));

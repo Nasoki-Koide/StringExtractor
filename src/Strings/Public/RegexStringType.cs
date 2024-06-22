@@ -33,7 +33,7 @@ namespace StringExtractors
             {
                 if (value.HasFlag(RegexStringTypeOptions.LeftToRight) &&
                     value.HasFlag(RegexStringTypeOptions.RightToLeft))
-                    throw new ArgumentException("Cannot set LeftToRight and RightToLeft in same instance.", nameof(value));
+                    throw new ArgumentException($"Cannot set {nameof(RegexStringTypeOptions.LeftToRight)} and {nameof(RegexStringTypeOptions.RightToLeft)} in same instance.", nameof(value));
                 _options = value;
             }
         }
@@ -53,7 +53,7 @@ namespace StringExtractors
                         o |= RegexStringTypeOptions.RightToLeft;
                         break;
                     default:
-                        throw new NotImplementedException();
+                        throw new InvalidOperationException(nameof(autoSetDirection));
                 }
 
             return new RegexInternalStringType(Pattern, Skip, o);

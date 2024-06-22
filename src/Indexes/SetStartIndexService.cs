@@ -37,7 +37,7 @@ namespace StringExtractors.Indexes
                     target = rightString.Value;
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException(nameof(order));
             }
 
             if (startIndex.HasValue)
@@ -58,7 +58,7 @@ namespace StringExtractors.Indexes
                     target = leftString.Value;
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException(nameof(order));
             }
 
             switch (order)
@@ -74,7 +74,7 @@ namespace StringExtractors.Indexes
                             target.StartIndex = getEdgeIndex(SearchDirection.Backward);
                             break;
                         default:
-                            throw new NotImplementedException();
+                            throw new InvalidOperationException(nameof(target.SearchDirection));
                     }
                     break;
 
@@ -90,12 +90,12 @@ namespace StringExtractors.Indexes
                                 builder.Right.Value - 1 : getEdgeIndex(SearchDirection.Backward);
                             break;
                         default:
-                            throw new NotImplementedException();
+                            throw new InvalidOperationException(nameof(target.SearchDirection));
                     }
                     break;
 
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException(nameof(order));
             }
         }
 
@@ -108,7 +108,7 @@ namespace StringExtractors.Indexes
                 case SearchDirection.Backward:
                     return source.Length - 1;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidOperationException(nameof(direction));
             }
         }
     }

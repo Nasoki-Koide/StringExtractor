@@ -32,7 +32,7 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                 else if (options.HasFlag(RegexStringTypeOptions.LeftToRight))
                     return SearchDirection.Forward;
                 else
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException($"You must set {nameof(RegexStringTypeOptions.LeftToRight)} or {nameof(RegexStringTypeOptions.RightToLeft)} to {nameof(RegexStringTypeOptions)}.");
             }
         }
 
@@ -46,7 +46,8 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                     .Match(_subStringService.GetSubString(source, StartIndex), pattern, convertOptions());
 
                 if (match.Index == -1)
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(ErrorMessages.LeftStringWasNotFound);
+
                 left = _adjustIndexService.Adjust(match, StartIndex);
                 switch (SearchDirection)
                 {
@@ -57,7 +58,7 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                         StartIndex = left - 1;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(SearchDirection));
+                        throw new InvalidOperationException(nameof(SearchDirection));
                 }
             }
 
@@ -76,7 +77,8 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                     .Match(_subStringService.GetSubString(source, StartIndex), pattern, convertOptions());
 
                 if (match.Index == -1)
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(ErrorMessages.RightStringWasNotFound);
+
                 right = _adjustIndexService.Adjust(match, StartIndex);
                 switch (SearchDirection)
                 {
@@ -87,7 +89,7 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                         StartIndex = right - 1;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(SearchDirection));
+                        throw new InvalidOperationException(nameof(SearchDirection));
                 }
             }
 

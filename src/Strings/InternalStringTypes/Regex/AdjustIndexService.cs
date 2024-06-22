@@ -21,7 +21,7 @@ namespace StringExtractors.Strings.InternalStringTypes.Regex
                 case SearchDirection.Backward:
                     return match.Index;
                 default:
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException(nameof(searchDirection));
             }
         }
     }

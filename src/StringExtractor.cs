@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using StringExtractors.Indexes;
 using StringExtractors.Strings;
 using StringExtractors.Strings.InternalStringTypes.Null;
@@ -78,7 +78,7 @@ namespace StringExtractors
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(parameters.SearchOrder));
+                    throw new InvalidOperationException(nameof(parameters.SearchOrder));
             }
 
             var indexCollection = indexCollectionBuilder.Build();
