@@ -4,9 +4,29 @@ using StringExtractors.Strings;
 
 namespace StringExtractors
 {
+    /// <summary>
+    /// String locates at right side of extract target.
+    /// </summary>
     public class RightString
     {
-        public RightString(string value, int skip = 0, SearchDirection? direction = null, StringComparison stringComparison = StringComparison.CurrentCulture)
+        /// <summary>
+        /// For basic usage.
+        /// </summary>
+        /// <param name="value">Value of <c>RightString</c>.</param>
+        /// <param name="skip">
+        /// <inheritdoc cref="StringType.Skip" path="/summary"/>
+        /// </param>
+        /// <param name="direction">
+        /// <inheritdoc cref="NormalStringType.SearchDirection" path="/summary"/>
+        /// </param>
+        /// <param name="stringComparison">
+        /// <inheritdoc cref="NormalStringType.StringComparison" path="/summary"/>
+        /// </param>
+        public RightString(
+            string value,
+            int skip = 0,
+            SearchDirection? direction = null,
+            StringComparison stringComparison = StringComparison.CurrentCulture)
         {
             Value = new NormalStringType(value)
             {
@@ -16,12 +36,20 @@ namespace StringExtractors
             };
         }
 
+        /// <summary>
+        /// For advanced usage.
+        /// </summary>
+        /// <param name="value">Value and configurations of <c>RightString</c>.</param>
         public RightString(StringType value)
         {
             Value = value;
         }
 
         private StringType _value;
+        /// <summary>
+        /// <inheritdoc cref="RightString(StringType)" path="/param[@name='value']"/>
+        /// </summary>
+        /// <value></value>
         public StringType Value
         {
             get => _value;

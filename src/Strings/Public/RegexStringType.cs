@@ -5,15 +5,28 @@ using StringExtractors.Strings.InternalStringTypes.Regex;
 
 namespace StringExtractors
 {
+    /// <summary>
+    /// Use this when you want to use regular expression.
+    /// </summary>
     public class RegexStringType : StringType
     {
+        /// <summary>
+        /// Set pattern of regular expression.
+        /// </summary>
+        /// <param name="pattern"></param>
         public RegexStringType(string pattern)
         {
             Pattern = pattern;
         }
 
+        /// <summary>
+        /// Regular expression pattern of <c>LeftString</c> or <c>RightString</c>.
+        /// </summary>
         public string Pattern { get; set; }
         private RegexStringTypeOptions _options;
+        /// <summary>
+        /// Options of regular expression.
+        /// </summary>
         public RegexStringTypeOptions Options
         {
             get => _options; set
