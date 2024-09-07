@@ -81,3 +81,14 @@ locates at end of source.
 SearchOrder specifies which of LeftString or RightString is searched first.
 StartIndex is an index of start searching.
 
+LeftString and RightString have four arguments.
+Value is a string of Left/RightString.
+Skip ignores same string with value for specified times. Use this when same string with value appears multiple times is source.
+Direction is direction of searching value in source.
+StringComparison is culture, case, and sort rules for string comparison.
+
+If you want to use regular expression, pass RegexStringType to Left/RightString instead of 
+above four arguments.
+RegexStringType has two properties, Pattern and Options.
+Pattern is pattern of regular expression. (Same role with value of above arguments.)
+Options has same constants with RegexOptions in System.Text.RegularExpressions, except that LeftToRight is appended.
