@@ -4,7 +4,7 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <Deterministic>false</Deterministic>
         <PackageId>StringExtractor</PackageId>
-        <Version>2.0.0-alpha</Version>
+        <Version>2.0.0</Version>
         <Authors>Nasoki-Koide</Authors>
         <Description>You can extract a part of string from long string.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -13,7 +13,7 @@
         <RepositoryUrl>https://github.com/Nasoki-Koide/StringExtractor</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Added many features.(beta)</PackageReleaseNotes>
+        <PackageReleaseNotes>Added many features.</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\README.md"
