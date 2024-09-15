@@ -20,18 +20,75 @@ var result1 = StringExtractor.Extract(longString, rightString: " Two").Value;
 var result2 = StringExtractor.Extract(longString, leftString: "Two ").Value;
 ```
 
-You can specify search direction. (Forward or Backward.)
+For more complicated case, use StringExtractorParameters.
 ```
 using StringExtractors;
 
 var longString = "I'm Jack. I'm Tyler."
 
-// Searching leftString from the end of longString. So, result is "Tyler".
-var leftString = new LeftString("I'm ")
-{
-    SearchDirection = SearchDirection.Backward
-};
+// Search leftString from the end of longString. So, result is "Tyler".
+var leftString = new LeftString(
+    "I'm ",
+    direction: SearchDirection.Backward);
+
 var rightString = new RightString(".");
 
-var result = StringExtractor.Extract(longString, leftString, rightString).Value;
+var parameters = new StringExtractorParameters(
+    longString,
+    leftString,
+    rightString
+);
+
+// "Tyler"
+var result = StringExtractor.Extract(parameters).Value;
 ```
+
+```
+using StringExtractors;
+
+var longString = "I'm George Washington. I'm Abraham Lincoln."
+
+var leftString = new LeftString("I'm ");
+
+var rightString = new RightString("Lincoln.");
+
+// Search rightString first. So, result is "Abraham".
+var parameters = new StringExtractorParameters(
+    longString,
+    leftString,
+    rightString,
+    searchOrder: SearchOrder.RightFirst
+);
+
+// "Abraham"
+var result = StringExtractor.Extract(parameters).Value;
+```
+
+Extract method of StringExtractor returns ExtractionResult.
+ExtractionResult has two properties, Value and IndexCollection.
+Value is extracted string. 
+IndexCollection has three properties,
+Left (index of LeftString in source. Source is longString in above examples), 
+Right (index of RightString in source.), 
+Head (index of extracted string in source.).
+
+StringExtractorParameters has five arguments.
+Source is a string which contains extract target.
+LeftString is a string locates at left side of extract target. Omit this if extract target
+locates at head of source.
+RightString is a string locates at right side of extract target. Omit this if extract target
+locates at end of source.
+SearchOrder specifies which of LeftString or RightString is searched first.
+StartIndex is an index of start searching.
+
+LeftString and RightString have four arguments.
+Value is a string of Left/RightString.
+Skip ignores same string with value for specified times. Use this when same string with value appears multiple times is source.
+Direction is direction of searching value in source.
+StringComparison is culture, case, and sort rules for string comparison.
+
+If you want to use regular expression, pass RegexStringType to Left/RightString instead of 
+above four arguments.
+RegexStringType has two properties, Pattern and Options.
+Pattern is pattern of regular expression. (Same role with value of above arguments.)
+Options has same constants with RegexOptions in System.Text.RegularExpressions, except that LeftToRight is appended.
