@@ -4,15 +4,16 @@
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <Deterministic>false</Deterministic>
         <PackageId>StringExtractor</PackageId>
-        <Version>1.0.1</Version>
+        <Version>2.0.0</Version>
         <Authors>Nasoki-Koide</Authors>
-        <Description>Extract string.</Description>
+        <Description>You can extract a part of string from long string.</Description>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Nasoki-Koide/StringExtractor</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Just added GitHub link.</PackageReleaseNotes>
+        <PackageReleaseNotes>Added many features.</PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
         <None Include="..\README.md"
